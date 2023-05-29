@@ -1,16 +1,74 @@
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import { Fragment } from "react";
+import Link from "next/link";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { createPopper } from '@popperjs/core';
+import { useMemo } from "react";
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import GoogleMapReact from 'google-map-react';
+import {
+  withScriptjs,
+  withGoogleMap,
+  GoogleMap,
+  Marker,
+} from "react-google-maps";
 
-export default function Home() {
+//addresses
+import { addresses } from "./data";
+
+
+//google maps api key
+//AIzaSyCSM4ZLyGY9Wh1ZXaQ_cdUz3FnbQq43zz4. AIzaSyASFFo5HNA8D3Ua8p_FzRY4ueOZmhM7n5I
+
+function nearestOpps() {
+
+ //onclick test
+
+//  const {} = useLoadScript({ googleMapsApiKey: "AIzaSyASFFo5HNA8D3Ua8p_FzRY4ueOZmhM7n5I"});
+
+
+
+
+
+
+  // //usestate input box
+  // const [searchAddress, setSearchAddress] = useState('');
+
+  // const handleChange = event => {
+  //   setSearchAddress(event.target.value);
+  //   console.log(event.target.value);
+  // };
+
+
+
+
+  // const [data, setData] = useState([]);
+  
+  // //sort and filter to top 5, need to use set state?
+ 
+
+  // const fetchData = () => {
+  //       setData(addresses);
+  // };
+
+  // useEffect(() => {
+  //   fetchData();
+      
+  // }, []);
+
+
+
+  //googlemaps test
+  
+
+
+
+ 
+
   return (
-    <div class="h-screen bg-white dark:bg-gray-900">
-      <Head>
-        <title>Andrew Hilseberg</title>
-        <meta name="description" content="Andrew Hilseberg's Portfolio" />
-        <link rel="icon" href="/favicon.ico" />
+    <Fragment>
 
-        <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900">
+<nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900">
           <div class="container flex flex-wrap items-center justify-between mx-auto">
             <a href="https://andrewhilseberg.com/" class="flex items-center">
               <img
@@ -71,7 +129,6 @@ export default function Home() {
                     Portfolio
                   </a>
                 </li>
-               
                 <li>
                   <a
                     href="#"
@@ -84,53 +141,53 @@ export default function Home() {
             </div>
           </div>
         </nav>
-      </Head>
+<div class="flex justify-center items-center"> 
+<div class="flex-col justify-center">
+<div class="m-8 text-4xl font-bold">Opportunity Finder</div>
+<div class="m-8 italic text-slate-500 text-sm">Enter an address below to find the best, closest opportunities.</div>
+<div class="m-8 flex flex-row">
+{/* <input class="my-0 ml-0 mr-4  border-2 w-5/6 bg-white rounded-2xl pl-2 py-0.5"
+        type="number"
+        id="message"
+        name="message"
+        onChange={handleChange}
+        value={searchAddress}
+      /> */}
+    {/* <button onClick={gMapsTest} class="my-0 ml-4 mr-0 w-1/6 \ text-center bg-green-500 text-white rounded-2xl">Go</button> */}
+</div>
+<div class="m-8 text-xl font-semibold">Your Top Opportunities</div>
 
-      <section class="h-screen">
-        <div class="flex flex-row h-screen grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
-          <div class="mr-auto place-self-center lg:col-span-7">
-            <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
-              Financial Insights Through Data
-            </h1>
-            <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-              From checkout to global sales tax compliance, companies around the
-              world use Flowbite to simplify their payment stack. Test herghrhsg
-            </p>
-            <a
-              href="/portfolio"
-              class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
-            >
-              Portfolio
-              <svg
-                class="w-5 h-5 ml-2 -mr-1"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-            </a>
-            <a
-              href="#"
-              class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-            >
-              Contact Me
-            </a>
-          </div>
-          <div class="h-full flex flex-row items-center w-[541px]">
-            <img class="h-[400px] w-[541px]" src="/rocket-white.png" alt="mockup"/>
-            </div>
-          <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-            
-          </div>
-        </div>
-      </section>
-
-
+{/* begin table section
+<div class="bg-white border-2 p-8 rounded-lg">
+<div class="flex flex-col justify-center">
+    <div>
+      <table class="table-auto text-sm">
+      <thead>
+        <tr>
+          <th>Address</th>
+          <th>Score</th>
+          <th>Delta</th>
+        </tr>
+        </thead>
+        <tbody>
+        {data.map((item, index) => (
+          <tr key={index}>
+            <td>{item.address}</td>
+            <td>{item.score}</td>
+            <td>{item.delta}</td>
+          </tr>
+        ))}
+      </tbody>
+      </table>
     </div>
+    </div>
+    </div> */}
+    </div>
+    </div>
+
+
+    </Fragment>
   );
 }
+
+export default nearestOpps;
